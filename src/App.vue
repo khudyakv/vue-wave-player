@@ -127,6 +127,7 @@ player.isPlaying     // воспроизводится ли
         <span class="badge">Vue 3</span>
         <span class="badge">TypeScript</span>
         <span class="badge">MIT</span>
+        <a href="https://wespot.ru" target="_blank" class="badge badge-link">разработано Spot</a>
       </div>
     </header>
 
@@ -513,12 +514,12 @@ player.isPlaying     // воспроизводится ли
   --bg: #0a0a0a;
   --surface: #141414;
   --surface-2: #1c1c1c;
-  --border: #262626;
-  --text: #fafafa;
-  --text-2: #a1a1a1;
-  --text-3: #525252;
-  --accent: #c2410c;
-  --accent-soft: rgba(194, 65, 12, 0.12);
+  --border: #404040;
+  --text: #ffffff;
+  --text-2: #e5e5e5;
+  --text-3: #b5b5b5;
+  --accent: #f97316;
+  --accent-soft: rgba(249, 115, 22, 0.15);
   --green: #16a34a;
   --mono: 'IBM Plex Mono', 'Menlo', monospace;
   --sans: 'IBM Plex Sans', system-ui, sans-serif;
@@ -603,6 +604,16 @@ body {
   font-size: 13px;
   color: var(--text-2);
   font-family: var(--mono);
+}
+
+.badge-link {
+  text-decoration: none;
+  transition: all 0.15s;
+}
+
+.badge-link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
 }
 
 /* Sections */
