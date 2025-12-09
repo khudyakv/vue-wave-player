@@ -44,6 +44,15 @@ function formatTimeHMS(seconds: number): string {
 
 const installCode = `npm install vue-wave-player`
 
+const globalRegisterCode = `// main.js
+import { createApp } from 'vue'
+import App from './App.vue'
+import VueWavePlayer from 'vue-wave-player'
+
+const app = createApp(App)
+app.use(VueWavePlayer)
+app.mount('#app')`
+
 const basicCode = `<template>
   <VueWavePlayer src="/audio.mp3" />
 </template>
@@ -51,6 +60,20 @@ const basicCode = `<template>
 <script setup>
 import { VueWavePlayer } from 'vue-wave-player'
 <\/script>`
+
+const barSizeCode = `<!-- Тонкие колонки 1px с отступом 1px -->
+<VueWavePlayer
+  src="/audio.mp3"
+  :bar-width="1"
+  :bar-gap="1"
+/>
+
+<!-- Широкие колонки 4px с отступом 4px -->
+<VueWavePlayer
+  src="/audio.mp3"
+  :bar-width="4"
+  :bar-gap="4"
+/>`
 
 const colorsCode = `<VueWavePlayer
   src="/audio.mp3"
@@ -236,7 +259,20 @@ player.isPlaying     // воспроизводится ли
     <!-- Quick Start -->
     <section class="section">
       <h2>Быстрый старт</h2>
+      
+      <h3>Вариант 1: Глобальная регистрация (рекомендуется)</h3>
+      <pre class="code-block"><code>{{ globalRegisterCode }}</code></pre>
+      <p class="note">Теперь компонент <code>&lt;VueWavePlayer /&gt;</code> доступен везде без импорта.</p>
+      
+      <h3>Вариант 2: Локальный импорт</h3>
       <pre class="code-block"><code>{{ basicCode }}</code></pre>
+      <p class="note">✅ Стили подключаются автоматически, отдельный импорт CSS не нужен!</p>
+    </section>
+    
+    <!-- Bar Size Examples -->
+    <section class="section">
+      <h2>Кастомный размер колонок</h2>
+      <pre class="code-block"><code>{{ barSizeCode }}</code></pre>
     </section>
 
     <!-- Props -->
@@ -666,6 +702,35 @@ body {
   color: var(--text-3);
   padding-bottom: 12px;
   border-bottom: 1px solid var(--border);
+}
+
+.section h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 24px 0 12px;
+  color: var(--text-1);
+}
+
+.section h3:first-of-type {
+  margin-top: 0;
+}
+
+.note {
+  font-size: 13px;
+  color: var(--text-2);
+  margin: 12px 0 24px;
+  padding: 12px 16px;
+  background: var(--surface);
+  border-radius: 8px;
+  border-left: 3px solid var(--accent);
+}
+
+.note code {
+  background: var(--bg);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: var(--mono);
+  font-size: 12px;
 }
 
 .section h3 {
