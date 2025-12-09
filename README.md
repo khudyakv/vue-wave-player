@@ -29,6 +29,30 @@ npm install vue-wave-player
 
 ## Быстрый старт
 
+### Вариант 1: Глобальная регистрация (рекомендуется)
+
+```js
+// main.js
+import { createApp } from 'vue'
+import App from './App.vue'
+import VueWavePlayer from 'vue-wave-player'
+import 'vue-wave-player/dist/style.css'
+
+const app = createApp(App)
+app.use(VueWavePlayer)
+app.mount('#app')
+```
+
+Теперь компонент доступен везде:
+
+```vue
+<template>
+  <VueWavePlayer src="/audio.mp3" />
+</template>
+```
+
+### Вариант 2: Локальный импорт
+
 ```vue
 <template>
   <VueWavePlayer src="/audio.mp3" />
@@ -36,6 +60,7 @@ npm install vue-wave-player
 
 <script setup>
 import { VueWavePlayer } from 'vue-wave-player'
+import 'vue-wave-player/dist/style.css'
 </script>
 ```
 
