@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import dts from 'vite-plugin-dts'
+import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
 import { resolve } from 'path'
 
 export default defineConfig(({ mode }) => {
@@ -12,6 +13,7 @@ export default defineConfig(({ mode }) => {
           insertTypesEntry: true,
           include: ['src/lib/**/*'],
         }),
+        cssInjectedByJsPlugin(),
       ],
       build: {
         lib: {
@@ -20,6 +22,7 @@ export default defineConfig(({ mode }) => {
           formats: ['es', 'umd'],
           fileName: 'vue-wave-player',
         },
+        cssCodeSplit: false,
         rollupOptions: {
           external: ['vue'],
           output: {
@@ -27,6 +30,7 @@ export default defineConfig(({ mode }) => {
             globals: {
               vue: 'Vue',
             },
+            assetFileNames: 'vue-wave-player.[ext]',
           },
         },
       },

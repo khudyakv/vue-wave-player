@@ -122,7 +122,7 @@ player.isPlaying     // воспроизводится ли
           </a>
         </div>
       </div>
-      <p class="subtitle">Аудио плеер с визуализацией волны в стиле Telegram для Vue 3</p>
+      <p class="subtitle">Аудио плеер с Canvas визуализацией волны в стиле Telegram для Vue 3. Плавная анимация, автостоп других плееров, кастомизация размеров.</p>
       <div class="badges">
         <span class="badge">Vue 3</span>
         <span class="badge">TypeScript</span>
@@ -181,7 +181,9 @@ player.isPlaying     // воспроизводится ли
             <VueWavePlayer :src="audioUrl">
               <template #play-button="{ isPlaying, toggle }">
                 <button class="custom-play-btn" @click="toggle">
-                  {{ isPlaying ? '⏹' : '▶' }}
+                  <span :style="{ transform: isPlaying ? 'none' : 'translate(2px, 1px)' }">
+                    {{ isPlaying ? '⏹' : '▶' }}
+                  </span>
                 </button>
               </template>
             </VueWavePlayer>
@@ -198,6 +200,28 @@ player.isPlaying     // воспроизводится ли
                 </div>
               </template>
             </VueWavePlayer>
+          </div>
+        </div>
+
+        <div class="demo-item">
+          <span class="demo-label">Тонкие колонки (1px × 1px)</span>
+          <div class="demo-card">
+            <VueWavePlayer
+              :src="audioUrl"
+              :bar-width="1"
+              :bar-gap="1"
+            />
+          </div>
+        </div>
+
+        <div class="demo-item">
+          <span class="demo-label">Квадратные (4px × 4px)</span>
+          <div class="demo-card">
+            <VueWavePlayer
+              :src="audioUrl"
+              :bar-width="4"
+              :bar-gap="4"
+            />
           </div>
         </div>
       </div>
@@ -234,6 +258,18 @@ player.isPlaying     // воспроизводится ли
               <td>string</td>
               <td>—</td>
               <td>URL аудио файла (обязательный)</td>
+            </tr>
+            <tr>
+              <td><code>barWidth</code></td>
+              <td>number</td>
+              <td>3</td>
+              <td>Ширина колонки волны в пикселях</td>
+            </tr>
+            <tr>
+              <td><code>barGap</code></td>
+              <td>number</td>
+              <td>2</td>
+              <td>Отступ между колонками в пикселях</td>
             </tr>
             <tr>
               <td><code>primaryColor</code></td>

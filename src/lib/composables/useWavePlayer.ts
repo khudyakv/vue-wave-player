@@ -2,6 +2,12 @@ import { ref, computed, watch, onUnmounted, type Ref } from 'vue'
 import { analyzeAudio, fetchAudioBuffer, generatePlaceholderWaveform, generateFallbackWaveform } from '../utils/audio'
 import type { PlayerState } from '../types'
 
+// Глобальное событие для остановки всех плееров кроме текущего
+const STOP_ALL_EVENT = 'vue-wave-player:stop-all'
+
+// Уникальный ID для каждого плеера
+let playerIdCounter = 0
+
 export interface UseWavePlayerOptions {
   src: Ref<string> | string
   barCount?: number
@@ -14,6 +20,9 @@ export function useWavePlayer(options: UseWavePlayerOptions) {
     barCount = 32,
     autoplay = false,
   } = options
+
+  // Уникальный ID этого плеера
+  const playerId = ++playerIdCounter
 
   // Refs
   const audioRef = ref<HTMLAudioElement | null>(null)
@@ -137,7 +146,17 @@ export function useWavePlayer(options: UseWavePlayerOptions) {
   // Playback controls
   function play() {
     if (!audioRef.value) return
+    // Останавливаем все другие плееры перед воспроизведением
+    window.dispatchEvent(new CustomEvent(STOP_ALL_EVENT, { detail: { playerId } }))
     audioRef.value.play().catch(console.error)
+  }
+
+  // Обработчик события остановки от других плееров
+  function handleStopAll(event: Event) {
+    const customEvent = event as CustomEvent<{ playerId: number }>
+    if (customEvent.detail.playerId !== playerId && audioRef.value) {
+      audioRef.value.pause()
+    }
   }
 
   function pause() {
@@ -179,8 +198,18 @@ export function useWavePlayer(options: UseWavePlayerOptions) {
     { immediate: true }
   )
 
+  // Подписка на событие остановки при монтировании
+  if (typeof window !== 'undefined') {
+    window.addEventListener(STOP_ALL_EVENT, handleStopAll)
+  }
+
   // Cleanup
   onUnmounted(() => {
+    // Отписка от события
+    if (typeof window !== 'undefined') {
+      window.removeEventListener(STOP_ALL_EVENT, handleStopAll)
+    }
+    
     if (audioRef.value) {
       audioRef.value.pause()
       audioRef.value.src = ''
