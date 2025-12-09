@@ -1,0 +1,59 @@
+{
+  "name": "vue-wave-player",
+  "version": "1.0.0",
+  "description": "Vue 3 компонент аудио плеера с визуализацией волны в стиле Telegram",
+  "type": "module",
+  "main": "./dist/vue-wave-player.umd.cjs",
+  "module": "./dist/vue-wave-player.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/vue-wave-player.js",
+      "require": "./dist/vue-wave-player.umd.cjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview",
+    "build:lib": "vite build --mode lib",
+    "type-check": "vue-tsc --noEmit"
+  },
+  "keywords": [
+    "vue",
+    "vue3",
+    "audio",
+    "player",
+    "waveform",
+    "voice",
+    "telegram",
+    "component"
+  ],
+  "author": "Spot <hello@wespot.ru> (https://wespot.ru)",
+  "license": "MIT",
+  "homepage": "https://github.com/aspect-apps/vue-wave-player#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aspect-apps/vue-wave-player.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aspect-apps/vue-wave-player/issues"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.0",
+    "typescript": "~5.3.0",
+    "vite": "^5.0.0",
+    "vite-plugin-dts": "^3.7.0",
+    "vue": "^3.4.0",
+    "vue-tsc": "^1.8.0"
+  }
+}
+
