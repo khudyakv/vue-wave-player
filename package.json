@@ -1,6 +1,6 @@
 {
   "name": "vue-wave-player",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Vue 3 компонент аудио плеера с визуализацией волны в стиле Telegram",
   "type": "module",
   "main": "./dist/vue-wave-player.umd.cjs",
@@ -35,13 +35,13 @@
   ],
   "author": "Spot <hello@wespot.ru> (https://wespot.ru)",
   "license": "MIT",
-  "homepage": "https://github.com/aspect-apps/vue-wave-player#readme",
+  "homepage": "https://github.com/khudyakv/vue-wave-player#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aspect-apps/vue-wave-player.git"
+    "url": "git+https://github.com/khudyakv/vue-wave-player.git"
   },
   "bugs": {
-    "url": "https://github.com/aspect-apps/vue-wave-player/issues"
+    "url": "https://github.com/khudyakv/vue-wave-player/issues"
   },
   "peerDependencies": {
     "vue": "^3.3.0"
