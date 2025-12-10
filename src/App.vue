@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch, onMounted } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { VueWavePlayer } from './lib'
 
 const audioUrl = '/example.mp3'
