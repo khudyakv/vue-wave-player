@@ -22,6 +22,7 @@ export default defineConfig(({ mode }) => {
           formats: ['es', 'umd'],
           fileName: 'vue-wave-player',
         },
+        copyPublicDir: false,
         cssCodeSplit: false,
         rollupOptions: {
           external: ['vue'],
