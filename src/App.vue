@@ -42,6 +42,21 @@ function formatTimeHMS(seconds: number): string {
   return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}.${ms.toString().padStart(3, '0')}`
 }
 
+// Копирование кода
+const copiedCode = ref<string | null>(null)
+
+async function copyCode(code: string) {
+  try {
+    await navigator.clipboard.writeText(code)
+    copiedCode.value = code
+    setTimeout(() => {
+      copiedCode.value = null
+    }, 2000)
+  } catch (err) {
+    console.error('Failed to copy:', err)
+  }
+}
+
 const installCode = `npm install vue-wave-player`
 
 const globalRegisterCode = `// main.js
@@ -155,8 +170,8 @@ player.isPlaying     // воспроизводится ли
     </header>
 
     <!-- Demo Section -->
-    <section class="section">
-      <h2>Демо</h2>
+    <section id="demo" class="section">
+      <h2><a href="#demo"><span class="hash">#</span> Демо</a></h2>
       
       <div class="demo-grid">
         <div class="demo-item">
@@ -251,33 +266,77 @@ player.isPlaying     // воспроизводится ли
     </section>
 
     <!-- Installation -->
-    <section class="section">
-      <h2>Установка</h2>
-      <pre class="code-block"><code>{{ installCode }}</code></pre>
+    <section id="install" class="section">
+      <h2><a href="#install"><span class="hash">#</span> Установка</a></h2>
+      <div class="code-wrapper">
+        <pre class="code-block"><code>{{ installCode }}</code></pre>
+        <button class="copy-btn" :class="{ copied: copiedCode === installCode }" @click="copyCode(installCode)">
+          <svg v-if="copiedCode === installCode" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+        </button>
+      </div>
     </section>
 
     <!-- Quick Start -->
-    <section class="section">
-      <h2>Быстрый старт</h2>
+    <section id="quickstart" class="section">
+      <h2><a href="#quickstart"><span class="hash">#</span> Быстрый старт</a></h2>
       
-      <h3>Вариант 1: Глобальная регистрация (рекомендуется)</h3>
-      <pre class="code-block"><code>{{ globalRegisterCode }}</code></pre>
+      <h3 id="global" class="section-subtitle"><a href="#global"><span class="hash">#</span> Глобальная регистрация (рекомендуется)</a></h3>
+      <div class="code-wrapper">
+        <pre class="code-block"><code>{{ globalRegisterCode }}</code></pre>
+        <button class="copy-btn" :class="{ copied: copiedCode === globalRegisterCode }" @click="copyCode(globalRegisterCode)">
+          <svg v-if="copiedCode === globalRegisterCode" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+        </button>
+      </div>
       <p class="note">Теперь компонент <code>&lt;VueWavePlayer /&gt;</code> доступен везде без импорта.</p>
       
-      <h3>Вариант 2: Локальный импорт</h3>
-      <pre class="code-block"><code>{{ basicCode }}</code></pre>
+      <h3 id="local" class="section-subtitle"><a href="#local"><span class="hash">#</span> Локальный импорт</a></h3>
+      <div class="code-wrapper">
+        <pre class="code-block"><code>{{ basicCode }}</code></pre>
+        <button class="copy-btn" :class="{ copied: copiedCode === basicCode }" @click="copyCode(basicCode)">
+          <svg v-if="copiedCode === basicCode" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+        </button>
+      </div>
       <p class="note">✅ Стили подключаются автоматически, отдельный импорт CSS не нужен!</p>
     </section>
     
     <!-- Bar Size Examples -->
-    <section class="section">
-      <h2>Кастомный размер колонок</h2>
-      <pre class="code-block"><code>{{ barSizeCode }}</code></pre>
+    <section id="barsize" class="section">
+      <h2><a href="#barsize"><span class="hash">#</span> Настройка ширины волны</a></h2>
+      <div class="code-wrapper">
+        <pre class="code-block"><code>{{ barSizeCode }}</code></pre>
+        <button class="copy-btn" :class="{ copied: copiedCode === barSizeCode }" @click="copyCode(barSizeCode)">
+          <svg v-if="copiedCode === barSizeCode" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+        </button>
+      </div>
     </section>
 
     <!-- Props -->
-    <section class="section">
-      <h2>Параметры (Props)</h2>
+    <section id="props" class="section">
+      <h2><a href="#props"><span class="hash">#</span> Параметры (Props)</a></h2>
       <div class="table-wrapper">
         <table class="props-table">
           <thead>
@@ -343,8 +402,8 @@ player.isPlaying     // воспроизводится ли
     </section>
 
     <!-- Slots -->
-    <section class="section">
-      <h2>Слоты (Slots)</h2>
+    <section id="slots" class="section">
+      <h2><a href="#slots"><span class="hash">#</span> Слоты (Slots)</a></h2>
       <div class="table-wrapper">
         <table class="props-table">
           <thead>
@@ -368,12 +427,23 @@ player.isPlaying     // воспроизводится ли
           </tbody>
         </table>
       </div>
-      <pre class="code-block"><code>{{ slotsCode }}</code></pre>
+      <div class="code-wrapper">
+        <pre class="code-block"><code>{{ slotsCode }}</code></pre>
+        <button class="copy-btn" :class="{ copied: copiedCode === slotsCode }" @click="copyCode(slotsCode)">
+          <svg v-if="copiedCode === slotsCode" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+        </button>
+      </div>
     </section>
 
     <!-- Events -->
-    <section class="section">
-      <h2>События (Events)</h2>
+    <section id="events" class="section">
+      <h2><a href="#events"><span class="hash">#</span> События (Events)</a></h2>
       <div class="table-wrapper">
         <table class="props-table">
           <thead>
@@ -432,12 +502,23 @@ player.isPlaying     // воспроизводится ли
           </tbody>
         </table>
       </div>
-      <pre class="code-block"><code>{{ eventsCode }}</code></pre>
+      <div class="code-wrapper">
+        <pre class="code-block"><code>{{ eventsCode }}</code></pre>
+        <button class="copy-btn" :class="{ copied: copiedCode === eventsCode }" @click="copyCode(eventsCode)">
+          <svg v-if="copiedCode === eventsCode" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+        </button>
+      </div>
     </section>
 
     <!-- Methods -->
-    <section class="section">
-      <h2>Методы (Ref)</h2>
+    <section id="methods" class="section">
+      <h2><a href="#methods"><span class="hash">#</span> Методы (Methods)</a></h2>
       
       <div class="table-wrapper">
         <table class="props-table">
@@ -488,10 +569,21 @@ player.isPlaying     // воспроизводится ли
         </table>
       </div>
       
-      <pre class="code-block"><code>{{ refCode }}</code></pre>
+      <div class="code-wrapper">
+        <pre class="code-block"><code>{{ refCode }}</code></pre>
+        <button class="copy-btn" :class="{ copied: copiedCode === refCode }" @click="copyCode(refCode)">
+          <svg v-if="copiedCode === refCode" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+        </button>
+      </div>
       
       <!-- Interactive Demo -->
-      <h3>Интерактивный пример</h3>
+      <h3 id="interactive" class="section-subtitle"><a href="#interactive"><span class="hash">#</span> Интерактивный пример</a></h3>
       <div class="methods-demo">
         <div class="demo-player">
           <VueWavePlayer 
@@ -561,14 +653,36 @@ player.isPlaying     // воспроизводится ли
     </section>
 
     <!-- Examples -->
-    <section class="section">
-      <h2>Примеры</h2>
+    <section id="examples" class="section">
+      <h2><a href="#examples"><span class="hash">#</span> Примеры</a></h2>
       
-      <h3>Кастомные цвета</h3>
-      <pre class="code-block"><code>{{ colorsCode }}</code></pre>
+      <h3 id="colors" class="section-subtitle"><a href="#colors"><span class="hash">#</span> Кастомные цвета</a></h3>
+      <div class="code-wrapper">
+        <pre class="code-block"><code>{{ colorsCode }}</code></pre>
+        <button class="copy-btn" :class="{ copied: copiedCode === colorsCode }" @click="copyCode(colorsCode)">
+          <svg v-if="copiedCode === colorsCode" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+        </button>
+      </div>
 
-      <h3>Скорость воспроизведения</h3>
-      <pre class="code-block"><code>{{ speedCode }}</code></pre>
+      <h3 id="speed" class="section-subtitle"><a href="#speed"><span class="hash">#</span> Скорость воспроизведения</a></h3>
+      <div class="code-wrapper">
+        <pre class="code-block"><code>{{ speedCode }}</code></pre>
+        <button class="copy-btn" :class="{ copied: copiedCode === speedCode }" @click="copyCode(speedCode)">
+          <svg v-if="copiedCode === speedCode" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+        </button>
+      </div>
     </section>
 
     <!-- Footer -->
@@ -583,18 +697,20 @@ player.isPlaying     // воспроизводится ли
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
 :root {
-  --bg: #0a0a0a;
-  --surface: #141414;
-  --surface-2: #1c1c1c;
-  --border: #404040;
-  --text: #ffffff;
-  --text-2: #e5e5e5;
-  --text-3: #b5b5b5;
-  --accent: #f97316;
-  --accent-soft: rgba(249, 115, 22, 0.15);
-  --green: #16a34a;
-  --mono: 'IBM Plex Mono', 'Menlo', monospace;
-  --sans: 'IBM Plex Sans', system-ui, sans-serif;
+  /* Telegram Dark Theme */
+  --bg: #17212B;
+  --surface: #232E3C;
+  --surface-2: #2B3A4D;
+  --border: #3D4D5F;
+  --text: #FFFFFF;
+  --text-2: #D8DEE4;
+  --text-3: #8B9BA8;
+  --accent: #3390EC;
+  --accent-soft: rgba(51, 144, 236, 0.15);
+  --accent-hover: #4EA4F6;
+  --green: #4CAF50;
+  --mono: 'SF Mono', 'Menlo', 'Monaco', monospace;
+  --sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
 }
 
 * {
@@ -617,6 +733,12 @@ body {
   max-width: 720px;
   margin: 0 auto;
   padding: 80px 24px;
+}
+
+@media (max-width: 540px) {
+  .demo-app {
+    padding: 40px 16px;
+  }
 }
 
 /* Header */
@@ -657,6 +779,20 @@ body {
   color: var(--text);
 }
 
+@media (max-width: 540px) {
+  .header h1 {
+    font-size: 1.75rem;
+  }
+  
+  .header {
+    margin-bottom: 48px;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+  }
+}
+
 .subtitle {
   font-size: 1.1rem;
   color: var(--text-2);
@@ -666,7 +802,8 @@ body {
 
 .badges {
   display: flex;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .badge {
@@ -684,8 +821,9 @@ body {
 }
 
 .badge-link:hover {
-  color: var(--accent);
+  color: var(--accent-hover);
   border-color: var(--accent);
+  background: var(--accent-soft);
 }
 
 /* Sections */
@@ -693,15 +831,40 @@ body {
   margin-bottom: 64px;
 }
 
+.section {
+  scroll-margin-top: 24px;
+}
+
 .section h2 {
-  font-size: 13px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  font-size: 1.25rem;
+  font-weight: 600;
   margin-bottom: 24px;
-  color: var(--text-3);
+  color: var(--text);
   padding-bottom: 12px;
   border-bottom: 1px solid var(--border);
+}
+
+.section h2 a {
+  color: inherit;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section h2 a:hover {
+  color: var(--accent);
+}
+
+.section h2 .hash {
+  color: var(--text-3);
+  font-weight: 400;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.section h2 a:hover .hash {
+  opacity: 1;
 }
 
 .section h3 {
@@ -711,9 +874,6 @@ body {
   color: var(--text-1);
 }
 
-.section h3:first-of-type {
-  margin-top: 0;
-}
 
 .note {
   font-size: 13px;
@@ -738,6 +898,34 @@ body {
   font-weight: 500;
   margin: 32px 0 16px;
   color: var(--text);
+}
+
+.section-subtitle {
+  margin-top: 32px;
+  scroll-margin-top: 24px;
+}
+
+.section-subtitle a {
+  color: inherit;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.section-subtitle a:hover {
+  color: var(--accent);
+}
+
+.section-subtitle .hash {
+  color: var(--text-3);
+  font-weight: 400;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.section-subtitle a:hover .hash {
+  opacity: 1;
 }
 
 /* Demo Grid */
@@ -772,30 +960,87 @@ body {
   display: flex;
   align-items: center;
   border-radius: 16px;
+  overflow: hidden;
 }
 
 .demo-card > * {
   width: 100%;
+  min-width: 0;
 }
 
 .demo-card.dark {
   background: var(--surface);
 }
 
+@media (max-width: 540px) {
+  .demo-card {
+    padding: 12px;
+    min-height: 76px;
+  }
+}
+
 /* Code Block */
+.code-wrapper {
+  position: relative;
+}
+
 .code-block {
   background: var(--surface);
   border: 1px solid var(--border);
   padding: 20px 24px;
+  padding-right: 56px;
   overflow-x: auto;
   font-family: var(--mono);
   font-size: 13px;
   line-height: 1.6;
   color: var(--text-2);
+  border-radius: 12px;
 }
 
 .code-block code {
   white-space: pre;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-3);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  padding: 0;
+}
+
+.copy-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.copy-btn:hover {
+  background: var(--border);
+  color: var(--text);
+}
+
+.copy-btn.copied {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+@media (max-width: 540px) {
+  .code-block {
+    padding: 16px;
+    padding-right: 48px;
+    font-size: 12px;
+  }
 }
 
 /* Table */
@@ -862,7 +1107,15 @@ body {
 }
 
 .footer-right:hover {
-  color: var(--accent);
+  color: var(--accent-hover);
+}
+
+@media (max-width: 540px) {
+  .footer {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
 }
 
 /* Dark theme for player */

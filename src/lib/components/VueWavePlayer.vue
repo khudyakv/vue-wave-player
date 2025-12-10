@@ -107,10 +107,6 @@ function drawWaveform() {
   const ctx = canvas.getContext('2d')
   if (!ctx) return
   
-  // Сбрасываем размеры canvas чтобы он не влиял на размер контейнера
-  canvas.style.width = '0'
-  canvas.style.height = '0'
-  
   const dpr = window.devicePixelRatio || 1
   const rect = container.getBoundingClientRect()
   const width = Math.floor(rect.width)
@@ -121,7 +117,9 @@ function drawWaveform() {
   // Установка размеров canvas с учётом DPR
   canvas.width = Math.floor(width * dpr)
   canvas.height = Math.floor(height * dpr)
-  canvas.style.width = `${width}px`
+  
+  // Не устанавливаем inline width - используем CSS 100%
+  canvas.style.removeProperty('width')
   canvas.style.height = `${height}px`
   
   // Отключаем сглаживание для чётких границ
@@ -450,8 +448,15 @@ defineExpose({
   overflow: hidden;
   user-select: none;
   width: 100%;
-  min-width: 100px;
+  min-width: 0;
   box-sizing: border-box;
+}
+
+@media (max-width: 360px) {
+  .vvp-container {
+    gap: 8px;
+    padding: 8px 10px;
+  }
 }
 
 /* Play Button */
@@ -535,6 +540,7 @@ defineExpose({
 .vvp-canvas {
   display: block;
   width: 100%;
+  max-width: 100%;
   height: 24px;
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
