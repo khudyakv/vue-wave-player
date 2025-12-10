@@ -1,38 +1,27 @@
 # Vue Wave Player
 
-🎵 Аудио плеер с визуализацией волны в стиле Telegram для Vue 3
+🎵 Audio player with Canvas waveform visualization in Telegram style for Vue 3
+
+[Changelog](./CHANGELOG.md)
 
 [![Vue 3](https://img.shields.io/badge/Vue-3.x-42b883)](https://vuejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-3178c6)](https://www.typescriptlang.org/)
 [![License](https://img.shields.io/badge/License-MIT-c2410c)](./LICENSE)
+[![npm](https://img.shields.io/npm/v/vue-wave-player)](https://www.npmjs.com/package/vue-wave-player)
 
-## Демо
+## Demo
 
-**[Смотреть демо →](https://vue-wave-player.vercel.app)**
+**[View Demo →](https://vue-wave-player.vercel.app)**
 
-## Возможности
-
-- 🎨 **Дизайн как в Telegram** — плеер для воспроизведения голосовых сообщений
-- 📊 **Автоматическая генерация волны** из аудио файла
-- 🖼️ **Canvas рендеринг** — чёткая отрисовка на любом экране (включая Retina)
-- ✨ **Плавная анимация** — появление волны за 0.6 секунды
-- 🔇 **Автостоп** — при включении одного плеера остальные автоматически останавливаются
-- 🎯 **Промотка кликом/драгом**
-- ⏱️ **Отображение времени**
-- 🔄 **Скорость воспроизведения** — 1x, 1.5x, 2x
-- 🎨 **Полная кастомизация** — цвета, размеры колонок через props
-- 🔌 **Слоты** — кастомная кнопка play и формат времени
-- 📱 **Мобильная поддержка (touch)**
-
-## Установка
+## Installation
 
 ```bash
 npm install vue-wave-player
 ```
 
-## Быстрый старт
+## Quick Start
 
-### Вариант 1: Глобальная регистрация (рекомендуется)
+### Global Registration (recommended)
 
 ```js
 // main.js
@@ -45,15 +34,9 @@ app.use(VueWavePlayer)
 app.mount('#app')
 ```
 
-Теперь компонент доступен везде:
+Now `<VueWavePlayer />` component is available everywhere without import.
 
-```vue
-<template>
-  <VueWavePlayer src="/audio.mp3" />
-</template>
-```
-
-### Вариант 2: Локальный импорт
+### Local Import
 
 ```vue
 <template>
@@ -65,81 +48,89 @@ import { VueWavePlayer } from 'vue-wave-player'
 </script>
 ```
 
-> ✅ Стили подключаются автоматически, отдельный импорт CSS не нужен!
+> ✅ Styles are included automatically, no separate CSS import needed!
 
-## Примеры
-
-### Кастомные цвета
+## Waveform Bar Settings
 
 ```vue
-<VueWavePlayer
-  src="/audio.mp3"
-  primary-color="#E91E63"
-  background-color="#FCE4EC"
-/>
+<!-- Thin bars 1px with 1px gap -->
+<VueWavePlayer src="/audio.mp3" :bar-width="1" :bar-gap="1" />
+
+<!-- Wide bars 4px with 4px gap -->
+<VueWavePlayer src="/audio.mp3" :bar-width="4" :bar-gap="4" />
 ```
 
-### Тёмная тема
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `src` | `string` | — | Audio file URL (required) |
+| `barWidth` | `number` | `3` | Waveform bar width in pixels |
+| `barGap` | `number` | `2` | Gap between bars in pixels |
+| `primaryColor` | `string` | `#3390EC` | Primary color (waveform, buttons) |
+| `backgroundColor` | `string` | `#FFFFFF` | Player background color |
+| `showPlaybackRate` | `boolean` | `false` | Show speed button |
+| `playbackRates` | `number[]` | `[1, 1.5, 2]` | Available playback speeds |
+| `autoplay` | `boolean` | `false` | Autoplay on load |
+
+## Slots
+
+| Slot | Data | Description |
+|------|------|-------------|
+| `#play-button` | `{ isPlaying, isLoading, toggle }` | Custom play button |
+| `#time` | `{ currentTime, duration, formattedCurrentTime, formattedDuration }` | Custom time display |
 
 ```vue
-<VueWavePlayer
-  src="/audio.mp3"
-  primary-color="#8774E1"
-  background-color="#212121"
-/>
-```
-
-### С кнопкой скорости
-
-```vue
-<VueWavePlayer
-  src="/audio.mp3"
-  show-playback-rate
-  :playback-rates="[1, 1.5, 2]"
-/>
-```
-
-### Кастомный размер колонок
-
-```vue
-<!-- Тонкие колонки 1px с отступом 1px -->
-<VueWavePlayer
-  src="/audio.mp3"
-  :bar-width="1"
-  :bar-gap="1"
-/>
-
-<!-- Широкие колонки 4px с отступом 4px -->
-<VueWavePlayer
-  src="/audio.mp3"
-  :bar-width="4"
-  :bar-gap="4"
-/>
-```
-
-### Кастомная кнопка воспроизведения (slot)
-
-```vue
+<!-- Custom play button -->
 <VueWavePlayer src="/audio.mp3">
   <template #play-button="{ isPlaying, toggle }">
-    <button @click="toggle">
-      {{ isPlaying ? 'Пауза' : 'Играть' }}
-    </button>
+    <button @click="toggle">{{ isPlaying ? 'Pause' : 'Play' }}</button>
+  </template>
+</VueWavePlayer>
+
+<!-- Custom time display -->
+<VueWavePlayer src="/audio.mp3">
+  <template #time="{ formattedCurrentTime, formattedDuration }">
+    <div>{{ formattedCurrentTime }} of {{ formattedDuration }}</div>
   </template>
 </VueWavePlayer>
 ```
 
-### Кастомное отображение времени (slot)
+## Events
+
+| Event | Data | Description |
+|-------|------|-------------|
+| `@play` | — | Playback started |
+| `@pause` | — | Paused |
+| `@ended` | — | Playback ended |
+| `@timeupdate` | `number` | Current time update (seconds) |
+| `@durationchange` | `number` | Duration determined (seconds) |
+| `@seeking` | `number` | Seeking started |
+| `@seeked` | `number` | Seeking ended |
+| `@ratechange` | `number` | Playback speed changed |
+| `@error` | `Error` | Load/playback error |
 
 ```vue
-<VueWavePlayer src="/audio.mp3">
-  <template #time="{ currentTime, formattedCurrentTime, formattedDuration }">
-    <div>{{ formattedCurrentTime }} из {{ formattedDuration }}</div>
-  </template>
-</VueWavePlayer>
+<VueWavePlayer
+  src="/audio.mp3"
+  @play="onPlay"
+  @pause="onPause"
+  @ended="onEnded"
+  @timeupdate="onTimeUpdate"
+/>
 ```
 
-### Программное управление (ref)
+## Methods
+
+| Method / Property | Type | Description |
+|-------------------|------|-------------|
+| `play()` | function | Start playback |
+| `pause()` | function | Pause |
+| `seek(time)` | function | Seek to specified time |
+| `setRate(rate)` | function | Set playback speed |
+| `currentTime` | number | Current playback time |
+| `duration` | number | Total duration |
+| `isPlaying` | boolean | Is currently playing |
 
 ```vue
 <template>
@@ -151,99 +142,38 @@ import { VueWavePlayer } from 'vue-wave-player'
 <script setup>
 const player = ref()
 
-player.play()        // начать воспроизведение
-player.pause()       // пауза
-player.seek(10)      // перемотать на 10 сек
-player.setRate(1.5)  // скорость 1.5x
-player.currentTime   // текущее время
-player.duration      // длительность
-player.isPlaying     // воспроизводится ли
+player.play()        // start playback
+player.pause()       // pause
+player.seek(10)      // seek to 10 sec
+player.setRate(1.5)  // speed 1.5x
+player.currentTime   // current time
+player.duration      // duration
+player.isPlaying     // is playing
 </script>
 ```
 
-## Параметры (Props)
+## Examples
 
-| Параметр | Тип | По умолчанию | Описание |
-|----------|-----|--------------|----------|
-| `src` | `string` | — | URL аудио файла (обязательный) |
-| `barWidth` | `number` | `3` | Ширина колонки волны в пикселях |
-| `barGap` | `number` | `2` | Отступ между колонками в пикселях |
-| `primaryColor` | `string` | `#3390EC` | Основной цвет (волна, кнопки) |
-| `backgroundColor` | `string` | `#FFFFFF` | Цвет фона плеера |
-| `showPlaybackRate` | `boolean` | `false` | Показывать кнопку скорости |
-| `playbackRates` | `number[]` | `[1, 1.5, 2]` | Доступные скорости воспроизведения |
-| `autoplay` | `boolean` | `false` | Автовоспроизведение при загрузке |
+### Custom Colors
 
-## Слоты (Slots)
-
-| Слот | Данные | Описание |
-|------|--------|----------|
-| `#play-button` | `{ isPlaying, isLoading, toggle }` | Кастомная кнопка воспроизведения |
-| `#time` | `{ currentTime, duration, formattedCurrentTime, formattedDuration }` | Кастомное отображение времени |
-
-## События (Events)
-
-| Событие | Данные | Описание |
-|---------|--------|----------|
-| `@play` | — | Воспроизведение началось |
-| `@pause` | — | Пауза |
-| `@ended` | — | Воспроизведение завершено |
-| `@timeupdate` | `number` | Обновление текущего времени |
-| `@durationchange` | `number` | Изменение длительности |
-| `@ratechange` | `number` | Изменение скорости |
-| `@seeking` | `number` | Начало перемотки |
-| `@seeked` | `number` | Окончание перемотки |
-| `@error` | `Error` | Ошибка воспроизведения |
-
-## Методы (ref)
-
-```typescript
-const player = ref()
-
-player.play()           // Начать воспроизведение
-player.pause()          // Пауза
-player.toggle()         // Переключить play/pause
-player.seek(5)          // Перемотать к 5 секунде
-player.seekByProgress(0.5) // Перемотать к 50%
-player.setRate(1.5)     // Установить скорость 1.5x
-
-// Состояние (реактивные ref)
-player.currentTime      // Текущее время (секунды)
-player.duration         // Длительность (секунды)
-player.isPlaying        // Воспроизводится ли
-player.playbackRate     // Текущая скорость
+```vue
+<VueWavePlayer
+  src="/audio.mp3"
+  primary-color="#E91E63"
+  background-color="#FCE4EC"
+/>
 ```
 
-## Особенности
+### Playback Speed
 
-### Canvas рендеринг
-Волна рисуется на Canvas с учётом `devicePixelRatio` для чёткого отображения на Retina дисплеях.
-
-### Автоматическое количество колонок
-Количество колонок рассчитывается автоматически исходя из ширины контейнера, `barWidth` и `barGap`.
-
-### Автостоп других плееров
-При воспроизведении одного плеера все остальные плееры на странице автоматически останавливаются.
-
-### Анимация появления
-При загрузке аудио волна плавно появляется от 0 до полной высоты за 0.6 секунды с easing-эффектом.
-
-## Запуск проекта
-
-```bash
-# Установка зависимостей
-npm install
-
-# Запуск dev сервера
-npm run dev
-
-# Сборка библиотеки
-npm run build:lib
-
-# Проверка типов
-npm run type-check
+```vue
+<VueWavePlayer
+  src="/audio.mp3"
+  show-playback-rate
+  :playback-rates="[1, 1.5, 2]"
+/>
 ```
 
-## Лицензия
+## License
 
 MIT © 2025 [Spot](https://wespot.ru)

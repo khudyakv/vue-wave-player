@@ -1,46 +1,18 @@
 export interface WavePlayerProps {
-  /** URL аудио файла */
   src: string
-  
-  /** Количество столбиков волны (используется для анализа) */
   barCount?: number
-  
-  /** Ширина столбика в пикселях (по умолчанию: 3) */
   barWidth?: number
-  
-  /** Отступ между столбиками в пикселях (по умолчанию: 2) */
   barGap?: number
-  
-  /** Основной цвет (по умолчанию: #3390EC - синий Telegram) */
   primaryColor?: string
-  
-  /** Цвет фона (по умолчанию: #FFFFFF) */
   backgroundColor?: string
-  
-  /** Автовоспроизведение при монтировании */
   autoplay?: boolean
-  
-  /** Показывать кнопку скорости (по умолчанию: false) */
   showPlaybackRate?: boolean
-  
-  /** Доступные скорости воспроизведения */
   playbackRates?: number[]
 }
 
 export interface WavePlayerSlots {
-  /** Слот для кастомной кнопки воспроизведения */
-  'play-button': {
-    isPlaying: boolean
-    isLoading: boolean
-    toggle: () => void
-  }
-  /** Слот для кастомного отображения времени */
-  'time': {
-    currentTime: number
-    duration: number
-    formattedCurrentTime: string
-    formattedDuration: string
-  }
+  'play-button': { isPlaying: boolean; isLoading: boolean; toggle: () => void }
+  'time': { currentTime: number; duration: number; formattedCurrentTime: string; formattedDuration: string }
 }
 
 export interface WavePlayerEmits {
@@ -58,25 +30,15 @@ export interface WavePlayerEmits {
 }
 
 export interface WavePlayerExpose {
-  /** Начать воспроизведение */
   play: () => void
-  /** Поставить на паузу */
   pause: () => void
-  /** Переключить воспроизведение/паузу */
   toggle: () => void
-  /** Перемотать к указанному времени */
   seek: (time: number) => void
-  /** Установить скорость воспроизведения */
   setRate: (rate: number) => void
-  /** Текущее время воспроизведения */
   currentTime: number
-  /** Общая длительность */
   duration: number
-  /** Воспроизводится ли сейчас */
   isPlaying: boolean
-  /** Текущая скорость воспроизведения */
   playbackRate: number
 }
 
 export type PlayerState = 'idle' | 'loading' | 'playing' | 'paused' | 'error'
-

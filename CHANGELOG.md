@@ -1,62 +1,72 @@
 # Changelog
 
-Все изменения в проекте документируются в этом файле.
+All notable changes to this project are documented in this file.
 
-## [1.0.4] — 2025-12-10
+## [1.0.7] — 2025-01-10
 
-### Улучшено
+### Changed
 
-- 📱 **Мобильный адаптив** — плеер теперь корректно отображается на экранах 320px
-- 🎨 **Демо страница в стиле Telegram** — обновлён дизайн с тёмной темой
-- 📋 **Кнопки копирования кода** — добавлены SVG иконки для копирования примеров
-- 🔗 **Якорные ссылки** — все разделы документации теперь кликабельные с хештегами
-- 📦 **Уменьшен размер пакета** — убраны лишние файлы из npm (example.mp3)
+- 🌐 **English documentation** — all documentation translated to English
+- 💾 **Language persistence** — selected language saved to localStorage
+- 📝 **Code optimization** — removed comments, optimized functions, reduced bundle size
+- 📦 **Bundle size reduced** — from 15.98 kB to 14.87 kB (ESM), from 12.68 kB to 12.13 kB (UMD)
+- 🔀 **Git workflow** — added develop branch for development, main branch protected
 
-### Исправлено
+## [1.0.3-1.0.6] — 2025-12-10
 
-- 🐛 Исправлена ширина canvas на мобильных устройствах
-- 🐛 Исправлен адаптивный перенос бейджей
+### Improved
+
+- 📱 **Mobile responsiveness** — player now displays correctly on 320px screens
+- 🎨 **Telegram-style demo page** — updated design with dark theme
+- 📋 **Copy code buttons** — added SVG icons for copying examples
+- 🔗 **Anchor links** — all documentation sections are now clickable with hashtags
+- 📦 **Reduced package size** — removed unnecessary files from npm (example.mp3)
+
+### Fixed
+
+- 🐛 Fixed canvas width on mobile devices
+- 🐛 Fixed adaptive badge wrapping
 
 ## [1.0.2] — 2025-12-09
 
-### Добавлено
+### Added
 
-- 🖼️ **Canvas рендеринг волны** — чёткое отображение на любых экранах (включая Retina)
-- ✨ **Плавная анимация появления** — волна анимируется от 0 до полной высоты за 0.6с
-- 🔇 **Автостоп других плееров** — при воспроизведении одного плеера остальные автоматически останавливаются
-- 📏 **Параметры `barWidth` и `barGap`** — настройка ширины колонок и отступов в пикселях
-- 📊 **Динамическое количество колонок** — рассчитывается автоматически на основе ширины контейнера
+- 🖼️ **Canvas waveform rendering** — crisp display on any screen (including Retina)
+- ✨ **Smooth appearance animation** — waveform animates from 0 to full height over 0.6s
+- 🔇 **Auto-stop other players** — playing one player automatically pauses others
+- 📏 **`barWidth` and `barGap` props** — customize bar width and spacing in pixels
+- 📊 **Dynamic bar count** — calculated automatically based on container width
 
-### Улучшено
+### Improved
 
-- 🎯 Улучшена чёткость отрисовки колонок (округление координат до целых пикселей)
-- ⚡ Оптимизирована производительность перерисовки при изменении размера
+- 🎯 Improved bar rendering clarity (coordinates rounded to whole pixels)
+- ⚡ Optimized redraw performance on resize
 
 ## [1.0.1] — 2025-12-09
 
-### Добавлено
+### Added
 
-- 🔌 Поддержка `app.use(VueWavePlayer)` для глобальной регистрации
-- 📖 Обновлена документация с примерами использования
+- 🔌 Support for `app.use(VueWavePlayer)` for global registration
+- 📖 Updated documentation with usage examples
 
-### Исправлено
+### Fixed
 
-- 📝 Добавлена инструкция по импорту стилей в README
+- 📝 Added style import instructions to README
 
 ## [1.0.0] — 2025-12-09
 
-### Добавлено
+### Added
 
-- 🎨 Компонент `VueWavePlayer` с дизайном в стиле Telegram
-- 📊 Автоматическая генерация волны из аудио файла (Web Audio API)
-- 🎯 Промотка кликом и драгом
-- ⏱️ Отображение текущего времени и длительности
-- 🔄 Кнопка скорости воспроизведения (1x, 1.5x, 2x)
-- 🎨 Кастомизация цветов через `primaryColor` и `backgroundColor`
-- 🔌 Слот `#play-button` для кастомной кнопки воспроизведения
-- 🔌 Слот `#time` для кастомного отображения времени
-- 📱 Поддержка touch событий для мобильных устройств
-- 🧩 Composable `useWavePlayer` для кастомных реализаций
-- 📡 События: `play`, `pause`, `ended`, `timeupdate`, `durationchange`, `ratechange`, `error`
-- 🔧 Методы через ref: `play()`, `pause()`, `toggle()`, `seek()`, `setRate()`
-- 📦 TypeScript типы
+- 🎨 `VueWavePlayer` component with Telegram-style design
+- 📊 Automatic waveform generation from audio file (Web Audio API)
+- 🎯 Click and drag seeking
+- ⏱️ Current time and duration display
+- 🔄 Playback speed button (1x, 1.5x, 2x)
+- 🎨 Color customization via `primaryColor` and `backgroundColor`
+- 🔌 `#play-button` slot for custom play button
+- 🔌 `#time` slot for custom time display
+- 📱 Touch event support for mobile devices
+- 🧩 `useWavePlayer` composable for custom implementations
+- 📡 Events: `play`, `pause`, `ended`, `timeupdate`, `durationchange`, `ratechange`, `error`
+- 🔧 Ref methods: `play()`, `pause()`, `toggle()`, `seek()`, `setRate()`
+- 📦 TypeScript types
