@@ -126,6 +126,7 @@ import { VueWavePlayer } from 'vue-wave-player'
 |-------------------|------|-------------|
 | `play()` | function | Start playback |
 | `pause()` | function | Pause |
+| `stop()` | function | Stop playback and reset to start |
 | `seek(time)` | function | Seek to specified time |
 | `setRate(rate)` | function | Set playback speed |
 | `currentTime` | number | Current playback time |
@@ -137,6 +138,7 @@ import { VueWavePlayer } from 'vue-wave-player'
   <VueWavePlayer ref="player" src="/audio.mp3" />
   <button @click="player.play()">Play</button>
   <button @click="player.pause()">Pause</button>
+  <button @click="player.stop()">Stop</button>
 </template>
 
 <script setup>
@@ -144,6 +146,7 @@ const player = ref()
 
 player.play()        // start playback
 player.pause()       // pause
+player.stop()        // stop and reset to start
 player.seek(10)      // seek to 10 sec
 player.setRate(1.5)  // speed 1.5x
 player.currentTime   // current time

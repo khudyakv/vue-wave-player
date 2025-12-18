@@ -29,7 +29,7 @@ const emit = defineEmits<{
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 const containerRef = ref<HTMLElement | null>(null)
 
-const { currentTime, duration, playbackRate, waveform, isPlaying, isLoading, progress, play, pause, toggle, seek, seekByProgress, setRate } = useWavePlayer({
+const { currentTime, duration, playbackRate, waveform, isPlaying, isLoading, progress, play, pause, stop, toggle, seek, seekByProgress, setRate } = useWavePlayer({
   src: toRef(props, 'src'),
   barCount: BAR_COUNT,
   autoplay: props.autoplay,
@@ -168,7 +168,7 @@ const handleRate = () => {
   setRate(rates[(rates.indexOf(playbackRate.value) + 1) % rates.length])
 }
 
-defineExpose({ play, pause, toggle, seek, seekByProgress, setRate, currentTime, duration, isPlaying, playbackRate })
+defineExpose({ play, pause, stop, toggle, seek, seekByProgress, setRate, currentTime, duration, isPlaying, playbackRate })
 </script>
 
 <template>

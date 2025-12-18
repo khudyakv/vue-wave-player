@@ -1,6 +1,6 @@
 {
   "name": "vue-wave-player",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Vue 3 audio player component with Telegram-style waveform visualization",
   "type": "module",
   "main": "./dist/vue-wave-player.umd.cjs",
