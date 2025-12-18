@@ -71,6 +71,13 @@ export function useWavePlayer({ src, barCount = 32, autoplay = false }: UseWaveP
     audioRef.value.play().catch(console.error)
   }
   const pause = () => audioRef.value?.pause()
+  const stop = () => {
+    if (audioRef.value) {
+      audioRef.value.pause()
+      audioRef.value.currentTime = 0
+      state.value = 'idle'
+    }
+  }
   const toggle = () => isPlaying.value ? pause() : play()
   const seek = (time: number) => { if (audioRef.value) audioRef.value.currentTime = Math.max(0, Math.min(time, duration.value)) }
   const seekByProgress = (p: number) => seek(p * duration.value)
@@ -94,5 +101,5 @@ export function useWavePlayer({ src, barCount = 32, autoplay = false }: UseWaveP
     watch(state, (s) => { if (s === 'idle' && audioRef.value && audioRef.value.readyState >= 2) play() }, { once: true })
   }
 
-  return { audioRef, state, currentTime, duration, playbackRate, waveform, error, isPlaying, isLoading, progress, play, pause, toggle, seek, seekByProgress, setRate }
+  return { audioRef, state, currentTime, duration, playbackRate, waveform, error, isPlaying, isLoading, progress, play, pause, stop, toggle, seek, seekByProgress, setRate }
 }

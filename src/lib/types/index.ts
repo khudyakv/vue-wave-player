@@ -32,6 +32,7 @@ export interface WavePlayerEmits {
 export interface WavePlayerExpose {
   play: () => void
   pause: () => void
+  stop: () => void
   toggle: () => void
   seek: (time: number) => void
   setRate: (rate: number) => void

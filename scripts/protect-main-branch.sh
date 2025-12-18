@@ -41,3 +41,5 @@ curl -X PUT \
 echo -e "\n\nBranch protection enabled!"
 echo "Now only pull requests can merge to main branch."
 
+
+

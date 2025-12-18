@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.0.8] — 2025-12-11
+
+### Added
+
+- ⏹️ **`stop()` method** — added method to stop playback and reset current time to 0
+- 📖 **Documentation update** — updated README with `stop()` method description
+
 ## [1.0.7] — 2025-01-10
 
 ### Changed

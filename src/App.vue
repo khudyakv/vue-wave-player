@@ -56,9 +56,10 @@ const t = computed(() => lang.value === 'en' ? {
   eventError: 'Load/playback error',
   methods: 'Methods',
   methodProp: 'Method / Property',
-  methodPlay: 'Start playback',
-  methodPause: 'Pause',
-  methodSeek: 'Seek to specified time',
+    methodPlay: 'Start playback',
+    methodPause: 'Pause',
+    methodStop: 'Stop playback and reset to start',
+    methodSeek: 'Seek to specified time',
   methodRate: 'Set playback speed',
   methodCurrent: 'Current playback time',
   methodDuration: 'Total duration',
@@ -121,9 +122,10 @@ const t = computed(() => lang.value === 'en' ? {
   eventError: 'Ошибка загрузки/воспроизведения',
   methods: 'Методы (Methods)',
   methodProp: 'Метод / Свойство',
-  methodPlay: 'Начать воспроизведение',
-  methodPause: 'Пауза',
-  methodSeek: 'Перемотать к указанному времени',
+    methodPlay: 'Начать воспроизведение',
+    methodPause: 'Пауза',
+    methodStop: 'Остановить и сбросить в начало',
+    methodSeek: 'Перемотать к указанному времени',
   methodRate: 'Установить скорость воспроизведения',
   methodCurrent: 'Текущее время воспроизведения',
   methodDuration: 'Общая длительность',
@@ -245,6 +247,7 @@ const player = ref()
 
 player.play()        // start playback
 player.pause()       // pause
+player.stop()        // stop and reset to start
 player.seek(10)      // seek to 10 sec
 player.setRate(1.5)  // speed 1.5x
 player.currentTime   // current time
@@ -261,6 +264,7 @@ const player = ref()
 
 player.play()        // начать воспроизведение
 player.pause()       // пауза
+player.stop()        // остановить и сбросить
 player.seek(10)      // перемотать на 10 сек
 player.setRate(1.5)  // скорость 1.5x
 player.currentTime   // текущее время
@@ -477,6 +481,7 @@ player.isPlaying     // воспроизводится ли
           <tbody>
             <tr><td><code>play()</code></td><td>function</td><td>{{ t.methodPlay }}</td></tr>
             <tr><td><code>pause()</code></td><td>function</td><td>{{ t.methodPause }}</td></tr>
+            <tr><td><code>stop()</code></td><td>function</td><td>{{ t.methodStop }}</td></tr>
             <tr><td><code>seek(time)</code></td><td>function</td><td>{{ t.methodSeek }}</td></tr>
             <tr><td><code>setRate(rate)</code></td><td>function</td><td>{{ t.methodRate }}</td></tr>
             <tr><td><code>currentTime</code></td><td>number</td><td>{{ t.methodCurrent }}</td></tr>
@@ -501,6 +506,7 @@ player.isPlaying     // воспроизводится ли
             <div class="panel-buttons">
               <button class="method-btn play" @click="playerRef?.play()"><span class="btn-icon">▶</span> play()</button>
               <button class="method-btn pause" @click="playerRef?.pause()"><span class="btn-icon">⏸</span> pause()</button>
+              <button class="method-btn stop" @click="playerRef?.stop()"><span class="btn-icon">⏹</span> stop()</button>
             </div>
           </div>
           <div class="panel-section">
@@ -640,6 +646,8 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 .method-btn.play:hover{background:rgba(22,163,74,.25)}
 .method-btn.pause{background:var(--accent-soft);border-color:rgba(194,65,12,.3);color:var(--accent)}
 .method-btn.pause:hover{background:rgba(194,65,12,.2)}
+.method-btn.stop{background:rgba(239,68,68,.15);border-color:rgba(239,68,68,.3);color:#EF4444}
+.method-btn.stop:hover{background:rgba(239,68,68,.25)}
 .btn-icon{font-size:12px}
 .state-row{display:flex;justify-content:space-between;align-items:center}
 .state-label{font-family:var(--mono);font-size:13px;color:var(--text-3)}
